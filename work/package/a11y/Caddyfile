@@ -1,0 +1,19 @@
+{
+	servers {
+		timeouts {
+			read_body 15m          # a 200 MB upload on a slow link takes minutes
+		}
+	}
+}
+
+{$DOMAIN} {
+	encode gzip
+	request_body {
+		max_size {$MAX_BODY:210MB}   # must be a little ABOVE MAX_UPLOAD_MB in .env
+	}
+	reverse_proxy app:8000 {
+		transport http {
+			response_header_timeout 15m   # analysing a very large PDF can take minutes before the first byte
+		}
+	}
+}

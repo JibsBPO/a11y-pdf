@@ -1,0 +1,222 @@
+<!doctype html><html lang=en><meta charset=utf-8><title>A11y Workbench · PDF/UA · WCAG</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href="data:,">
+<style>
+:root{--bg:#f3f6f6;--fg:#172a2d;--ac:#087f78;--bd:#d5e1df;--c:#c62828;--m:#a85d00;--n:#2e7d32;--bl:#1565c0;--brand:#073b3a}
+.brand{display:flex;align-items:center;gap:8px;color:var(--brand);text-decoration:none;padding:3px 8px 3px 0}.brandmark{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--brand);color:#fff;font-size:20px;font-weight:800}.brandwords{display:flex;flex-direction:column;line-height:1}.brandwords b{font-size:15px;letter-spacing:.3px}.brandwords small{font-size:8px;letter-spacing:1.1px;margin-top:4px;color:#55706d}.brandsep{height:30px;border-left:1px solid var(--bd);margin:0 4px}.productsub{display:block;font-size:10px;font-weight:400;color:#667b78;margin-top:2px}.companylink{margin-left:auto;color:var(--brand);font-weight:650;text-decoration:none;padding:8px 12px;border:1px solid #bbd5d1;border-radius:7px}.companylink:hover{background:#eaf4f2}
+*{box-sizing:border-box}body{margin:0;font:14px system-ui;background:var(--bg);color:var(--fg);display:grid;grid-template-rows:auto 1fr;height:100vh}
+header{display:flex;gap:8px;align-items:center;padding:10px 18px;border-bottom:1px solid var(--bd);background:#fff;flex-wrap:wrap;box-shadow:0 2px 10px #103b3a0c}
+h1{font-size:15px;margin:0 12px 0 0}button,select,input,textarea{font:inherit;padding:7px 12px;border:1px solid var(--bd);background:#fff;border-radius:6px;color:inherit}button{cursor:pointer}
+button.p{background:var(--ac);color:#fff;border-color:var(--ac);font-weight:600}button:disabled{opacity:.4;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.iss:focus-visible,.pgrow:focus-visible{outline:3px solid var(--bl);outline-offset:1px}
+main{display:grid;grid-template-columns:400px 1fr;min-height:0}aside{overflow:auto;border-right:1px solid var(--bd);background:#fff}
+.sum{padding:12px 14px;border-bottom:1px solid var(--bd)}.tabs{display:flex}.tabs button{flex:1;border-radius:0;border-width:0 0 2px;padding:7px 4px}.tabs .on{border-color:var(--ac);font-weight:600}
+.iss{padding:9px 14px;border-bottom:1px solid #eee;cursor:pointer;border-left:4px solid}.iss:hover,.iss.on{background:#fff8e1}
+.critical{border-color:var(--c)}.major{border-color:var(--m)}.minor{border-color:#888}.iss small,.rule small{color:#555;display:block;margin-top:2px}.tag{font-size:11px;padding:1px 6px;border-radius:9px;background:#eee;margin-right:4px;display:inline-block}
+.stage{overflow:auto;padding:16px;text-align:center}.wrap{position:relative;display:inline-block;background:#fff;box-shadow:0 2px 12px #0003;margin-bottom:16px;vertical-align:top}.wrap img{display:block}
+.box{position:absolute;border:2px solid var(--c);background:#c6282822;cursor:pointer}.box.major{border-color:var(--m);background:#e08a0022}.box.on{outline:3px solid var(--bl);background:#1565c033}
+.pgl{position:absolute;top:-1px;left:-1px;background:#333;color:#fff;font-size:11px;padding:2px 6px;z-index:1}.rule{padding:10px 14px;border-bottom:1px solid #eee}.rule b{display:block}
+.drop{margin:auto;padding:50px 60px;border:2px dashed var(--bd);border-radius:12px;color:#555;max-width:560px;line-height:1.5}.good{color:var(--n);font-weight:700}
+.vb{display:inline-block;margin:6px 0;padding:4px 12px;border:2px solid currentColor;border-radius:6px;font-weight:700}.vb.failed,.vb.error{color:var(--c)}.vb.needs_review,.vb.in_progress,.vb.ready{color:var(--m)}.vb.passed,.vb.verified{color:var(--n)}
+.cmp{display:flex;align-items:center;gap:14px;margin:10px 0}.cmp big{display:block;font-size:30px;font-weight:700;line-height:1.1}.cmp .arr{font-size:22px}
+.sec{padding:8px 14px;background:#f0eee6;font-weight:600;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;gap:8px}.pgrow{padding:7px 14px;border-bottom:1px solid #eee;cursor:pointer;display:flex;justify-content:space-between}.pgrow:hover{background:#fff8e1}
+.bar{height:10px;background:#ddd;border-radius:5px;margin:8px 0;overflow:hidden}.bar>div{height:10px;background:var(--n);border-radius:5px;transition:width .2s}
+.err{margin:auto;max-width:560px;padding:18px 22px;border:2px solid var(--c);border-radius:10px;background:#fff;text-align:left;color:#7f1d1d;line-height:1.5}
+#st{font-size:13px}#st.err2{color:var(--c);font-weight:600}
+.rv{padding:10px 14px;border-bottom:1px solid #eee;border-left:4px solid #bbb}.rv.confirmed{border-color:var(--n)}.rv.edited{border-color:var(--bl)}.rv.rejected{border-color:var(--c)}.rv.pending{border-color:var(--m)}
+.rv b{display:block;margin:2px 0}.rv small{color:#555;display:block}.rv img.crop{display:block;max-width:100%;max-height:150px;margin:6px 0;border:1px solid var(--bd);background:#fff}.rv label{display:block;font-size:12px;margin-top:6px;color:#444}
+.rv textarea,.rv input[type=text]{width:100%;margin-top:2px;padding:5px 8px;font-size:13px}.rv textarea{min-height:56px;resize:vertical}.acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.acts button{padding:5px 10px;font-size:13px}
+.ok{border-color:var(--n);color:var(--n)}.no{border-color:var(--c);color:var(--c)}.ed{border-color:var(--bl);color:var(--bl)}.lock{font-size:12px;color:var(--c);margin-top:4px}.cur{background:#f6f5f1;border-radius:4px;padding:4px 8px;font-size:13px}
+.blk{margin:6px 0 0;padding-left:18px;color:#7a4a00;font-size:13px}.fld{display:block;margin:8px 0;font-size:13px}.fld input[type=text]{width:100%;margin-top:2px}
+.tagtools{padding:10px 12px;background:#fbfaf7;border-bottom:1px solid var(--bd)}.tagtools b{display:block}.tagtools small{display:block;color:#555;margin:3px 0 8px}.tagsearch{width:100%}.tagtree{padding:8px 10px;border-bottom:1px solid #eee}.tgnode{padding:2px 0}.tagline{display:flex;align-items:center;gap:5px;min-height:34px}.tagcheck{width:15px;margin:0;padding:0;accent-color:var(--bl)}.tagselect{flex:1;min-width:0;text-align:left;padding:5px 7px;border-color:transparent;background:transparent;display:flex;align-items:center;gap:7px}.tagselect:hover,.tagselect.chosen{background:#edf4ff;border-color:#b8cde8}.tagrole{min-width:42px;text-align:center;font-size:11px;font-weight:700;color:#174c7a;background:#e5eef8;border-radius:4px;padding:2px 4px}.tagcustom{color:#875300;background:#fff1d0}.tagmeta{margin-left:auto;font-size:11px;color:#666;white-space:nowrap}.tagchildren{margin-left:15px;padding-left:9px;border-left:1px solid #d8dce2}.tagtree details>summary{font-size:11px;color:#666;cursor:pointer;list-style: disclosure-closed;padding:2px 0 3px 21px}.tagtree details[open]>summary{list-style:disclosure-open}.tagedit{padding:12px;background:#f7f9fc;border-top:1px solid #dce4ef;border-bottom:1px solid var(--bd)}.tagedithead{display:flex;align-items:center;justify-content:space-between;gap:6px}.tagedithead strong{font-size:14px}.tagedit label{display:block;margin:8px 0;font-size:12px;color:#45484d}.tagedit input,.tagedit select,.tagedit textarea{width:100%;margin-top:3px}.taghint{font-size:11px;color:#5d626a;margin-top:5px}.tabs{overflow-x:auto}.tabs button{min-width:74px;white-space:nowrap}
+@media (max-width:900px){main{grid-template-columns:1fr;grid-template-rows:45vh 1fr}aside{border-right:0;border-bottom:1px solid var(--bd)}}
+</style>
+<header><a class=brand href="https://publisia.jibs.in" target="_blank" rel="noopener noreferrer" aria-label="Publisia — open company website"><span class=brandmark aria-hidden=true>P</span><span class=brandwords><b>publisia</b><small>ACCESSIBILITY TOOLS</small></span></a><span class=brandsep aria-hidden=true></span><h1>A11y Workbench <small class=productsub>PDF accessibility checker &amp; remediation</small></h1>
+ <input type=file id=f aria-label="Choose a PDF or page image" accept=".pdf,image/*"><select id=lang aria-label="Document language"><option value="">Language: auto</option><option>en</option><option>es</option><option>fr</option><option>de</option><option>pt</option><option>it</option></select><input id=docTitle type=text maxlength=250 placeholder="Title: auto-detect" aria-label="Document title (leave blank to detect automatically)">
+<button class=p id=fix disabled>⚡ Auto-fix</button><button id=retry hidden>↻ Retry upload</button><button id=cancel hidden>Cancel upload</button><a id=dl style=display:none><button>⬇ Download accessible PDF</button></a><a id=rep style=display:none><button>⬇ Report (HTML)</button></a><a id=repj style=display:none><button>⬇ Report (JSON)</button></a><button id=vo title="Show the original PDF">Original</button><button id=vf title="Show the repaired PDF">Repaired</button><button id=del title="Delete your files from the server now">🗑 Delete my files</button><a class=companylink href="https://publisia.jibs.in" target="_blank" rel="noopener noreferrer">Visit Publisia ↗</a><span id=st role=status aria-live=polite></span></header>
+<main><aside aria-label="Results"><div class=tabs><button class=on id=t1 aria-pressed=true>Issues</button><button id=t2 aria-pressed=false>Rule catalogue</button><button id=t3 aria-pressed=false>Validation</button><button id=t4 aria-pressed=false>Human review</button><button id=t5 aria-pressed=false>Tags</button></div><div id=side></div></aside>
+<div class=stage id=stage><div class=drop id=dropmsg>Upload a PDF, a scanned PDF, or a page image (PNG/JPG).</div></div></main>
+<script>
+let S=null,ver='orig',data=null,sel=null,CFG={},lastFile=null,xhr=null,jobTab=3,obs=null,miss=0;
+const $=i=>document.getElementById(i);
+const st=(m,bad)=>{const e=$('st');e.textContent=m;e.className=bad?'err2':''};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const MB=n=>(n/1048576).toFixed(n>=10485760?0:1)+' MB';
+
+/* ---------- talking to the server: every failure becomes a sentence a person can act on ---------- */
+class NetErr extends Error{}
+class HttpErr extends Error{constructor(s,m){super(m);this.status=s}}
+function explain(e){
+ if(e instanceof NetErr)return 'Cannot reach the server. It may have stopped or be restarting. Start it again (run.bat on Windows, ./run.sh elsewhere, or "uvicorn app:app --port 8000"), then press Retry.';
+ if(e instanceof HttpErr){const s=e.status,m=e.message;
+  if(s==413)return m||('The upload was refused as too large by the web server or a proxy in front of it'+(CFG.max_upload_mb?' (this app itself allows '+CFG.max_upload_mb+' MB)':'')+'. Raise MAX_UPLOAD_MB and the proxy limit (README, section "Large files").');
+  if(s==411)return 'The browser did not declare the upload size. Try another browser.';
+  if(s==401)return 'A password is required: reload the page and sign in.';
+  if(s==429)return m||'Too many requests: wait a moment and try again.';
+  if(s==502||s==503||s==504)return 'The server did not answer in time (it is restarting, overloaded, or a proxy timed out). Wait a moment and press Retry.';
+  return m||('Server error '+s)}
+ return 'Unexpected error: '+(e&&e.message||e)}
+async function api(url,opt){let r;try{r=await fetch(url,opt)}catch(e){throw new NetErr()}
+ if(!r.ok){let m='';try{const d=(await r.json()).detail;m=typeof d=='string'?d:JSON.stringify(d||'')}catch(e){}throw new HttpErr(r.status,m)}return r}
+const form=o=>{const fd=new FormData();for(const k in o)if(o[k]!=null)fd.append(k,o[k]);return fd};
+function showErr(e,canRetry){const m=explain(e);st(m,true);$('retry').hidden=!(canRetry&&lastFile);
+ $('stage').innerHTML='<div class=err role=alert><b>Something went wrong</b><br>'+esc(m)+'</div>'}
+
+/* ---------- start-up: ask the server for its limits ---------- */
+(async()=>{try{CFG=await (await api('/api/config')).json();
+ $('dropmsg').innerHTML='Upload a PDF, a scanned PDF, or a page image (PNG/JPG).<br><small>Up to '+CFG.max_upload_mb+' MB and '+CFG.max_pages+' pages per file.'+(CFG.ocr?'':' <b>Tesseract OCR was not found</b>: scanned pages cannot be made searchable until it is installed (see README).')+'</small>'}
+ catch(e){st(explain(e),true)}})();
+
+/* ---------- upload with a progress bar (XMLHttpRequest: fetch cannot report upload progress) ---------- */
+function upload(file){return new Promise((res,rej)=>{const x=xhr=new XMLHttpRequest();x.open('POST','/api/analyze');let t0=Date.now(),tick=null;
+ const prog=(a,b)=>{const p=b?Math.round(100*a/b):0;st('Uploading '+p+'% ('+MB(a)+' of '+MB(b)+')');
+  $('stage').innerHTML='<div class=drop role=group aria-label="Upload progress"><b>Uploading '+esc(file.name)+'</b><div class=bar><div style="width:'+p+'%"></div></div>'+p+'% · '+MB(a)+' of '+MB(b)+'</div>'};
+ x.upload.onprogress=e=>{if(e.lengthComputable)prog(e.loaded,e.total)};
+ x.upload.onload=()=>{t0=Date.now();const f=()=>{const s=Math.round((Date.now()-t0)/1000);st('Analysing the PDF… '+s+' s (large files can take a minute)');
+  $('stage').innerHTML='<div class=drop role=status><b>Analysing '+esc(file.name)+'</b><br>Checking every page. '+s+' s so far. Large files can take a minute or more.</div>'};f();tick=setInterval(f,1000)};
+ const done=()=>{clearInterval(tick);xhr=null;$('cancel').hidden=true};
+ x.onload=()=>{done();let j=null;try{j=JSON.parse(x.responseText)}catch(e){}
+  if(x.status>=200&&x.status<300&&j)res(j);else{let m='';if(j&&j.detail)m=typeof j.detail=='string'?j.detail:JSON.stringify(j.detail);rej(new HttpErr(x.status,m))}};
+ x.onerror=()=>{done();rej(new NetErr())};x.onabort=()=>{done();rej(Object.assign(new Error('Upload cancelled'),{cancelled:true}))};
+ $('cancel').hidden=false;x.send(form({file}))})}
+$('cancel').onclick=()=>{if(xhr)xhr.abort()};
+$('f').onchange=e=>{const f=e.target.files[0];if(f)start(f)};
+$('retry').onclick=()=>{if(lastFile)start(lastFile)};
+async function start(f){lastFile=f;$('retry').hidden=true;$('fix').disabled=true;
+ if(CFG.max_upload_mb&&f.size>CFG.max_upload_mb*1048576){st('File too large',true);
+  $('stage').innerHTML='<div class=err role=alert><b>This file is '+MB(f.size)+'</b><br>The server accepts at most '+CFG.max_upload_mb+' MB. Ask whoever runs this server to raise MAX_UPLOAD_MB (README, section "Large files"), or reduce the PDF first.</div>';return}
+ try{S=await upload(f)}catch(e){if(e.cancelled){st('Upload cancelled');$('stage').innerHTML='<div class=drop>Upload cancelled.</div>';return}
+  showErr(e,e instanceof NetErr||(e instanceof HttpErr&&[502,503,504].includes(e.status)));return}
+ ver='orig';data=S;$('fix').disabled=false;$('dl').style.display=$('rep').style.display=$('repj').style.display='none';st('Ready: press Auto-fix');tab(1)}
+
+/* ---------- repair job ---------- */
+$('fix').onclick=async()=>{$('fix').disabled=true;st('Starting…');
+ try{await api('/api/fix/'+S.sid,{method:'POST',body:form({lang:$('lang').value||null,title:$('docTitle').value.trim()||null})})}catch(e){st(explain(e),true);$('fix').disabled=false;return}
+ jobTab=3;S.report=null;tab(3,true);poll()};
+async function poll(){let j;try{const r=await fetch('/api/job/'+S.sid);if(!r.ok){if(++miss>10){st('The server lost the job. Upload the file again.',true);$('fix').disabled=false;return}return setTimeout(poll,500)}j=await r.json();if(!j||!j.steps)throw 0}
+ catch(e){st('Connection lost, retrying…');return setTimeout(poll,2000)}
+ miss=0;showProgress(j);if(j.state=='error'){st(j.error||'Failed',true);$('fix').disabled=false;return}
+ if(j.state!='done')return setTimeout(poll,700);
+ try{const R=await (await api('/api/result/'+S.sid)).json();S.fixed=R.after;S.fixed.fixlog=R.result;S.report=R.report;ver='fixed';data=S.fixed}catch(e){st(explain(e),true);return}
+ $('dl').href='/api/download/'+S.sid;$('dl').style.display='';$('rep').href='/api/report/'+S.sid+'.html';$('repj').href='/api/report/'+S.sid+'.json';$('rep').style.display=$('repj').style.display='';$('fix').disabled=false;st('Done');renderPages();tab(jobTab)}
+function showProgress(j){st(j.state=='queued'?'Waiting in queue…':'Working: '+(j.steps.find(s=>s.state=='running')?.name||'')+' ('+j.pct+'%)');
+ $('side').innerHTML=`<div class=sum><b>${jobTab==4?'Re-check in progress':'Repair in progress'}</b><div role=progressbar aria-label="Progress" aria-valuemin=0 aria-valuemax=100 aria-valuenow=${j.pct} class=bar><div style="width:${j.pct}%"></div></div></div>`+j.steps.map(s=>`<div class=rule><span class=tag>${{waiting:'… waiting',running:'⏳ running',done:'✔ done',failed:'✖ failed'}[s.state]}</span>${esc(s.name)}${s.seconds!=null?` <small>${s.seconds}s</small>`:''}</div>`).join('')+(j.error?`<div class="iss critical">${esc(j.error)}</div>`:'')}
+$('vo').onclick=()=>{if(!S)return;ver='orig';data=S;renderPages()};$('vf').onclick=()=>{if(!S||!S.fixed)return;ver='fixed';data=S.fixed;renderPages()};
+$('del').onclick=async()=>{if(!S)return;try{await api('/api/session/'+S.sid,{method:'DELETE'})}catch(e){st(explain(e),true);return}S=null;data=null;$('stage').innerHTML='<div class=drop>Your files were deleted from the server.</div>';$('side').innerHTML='';['dl','rep','repj'].forEach(i=>$(i).style.display='none');$('fix').disabled=true;$('f').value='';st('Deleted')};
+
+/* ---------- tabs ---------- */
+['t1','t2','t3','t4','t5'].forEach((id,k)=>$(id).onclick=()=>tab(k+1));
+async function tab(n,keepSide){['t1','t2','t3','t4','t5'].forEach((id,k)=>{$(id).className=n==k+1?'on':'';$(id).setAttribute('aria-pressed',n==k+1)});
+ if(!S){$('side').innerHTML='';return}
+ if(keepSide)return;
+ if(n==1){renderIssues();renderPages()}else if(n==3)renderVal();else if(n==4)rvOpen();else if(n==5)tagOpen();
+ else{try{const R=await (await api('/api/rules')).json();
+  $('side').innerHTML=Object.values(R).map(v=>`<div class=rule><b>${esc(v.title)}</b><span class=tag>${esc(v.sev)}</span><span class=tag>Matterhorn ${esc(v.mh)}</span><span class=tag>WCAG ${esc(v.wcag)}</span><span class=tag>auto: ${esc(v.auto)}</span><small>Fix: ${esc(v.how)}</small></div>`).join('')}catch(e){st(explain(e),true)}}}
+
+/* ---------- pages: reserve space for every page, load images only when scrolled near (a 1000-page PDF stays usable) ---------- */
+const Z=1.5;
+function renderPages(){if(!data)return;const I=data.issues,sizes=S.page_sizes||[];if(obs)obs.disconnect();
+ obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const im=e.target;im.src=im.dataset.src;obs.unobserve(im)}}),{root:$('stage'),rootMargin:'1500px 0px'});
+ const by={};I.forEach(i=>{if(i.page&&i.bbox)(by[i.page]=by[i.page]||[]).push(i)});
+ $('stage').innerHTML=[...Array(data.pages).keys()].map(k=>{const n=k+1,[w,h]=sizes[k]||[612,792];
+  return `<div class=wrap id=pg${n} style="width:${w*Z}px;height:${h*Z}px"><span class=pgl>Page ${n}</span><img alt="Page ${n} of the ${ver=='fixed'?'repaired':'original'} document" width=${Math.round(w*Z)} height=${Math.round(h*Z)} data-src="/api/page/${S.sid}/${ver}/${n}.png?zoom=${Z}">${(by[n]||[]).map(i=>`<div class="box ${i.sev}${sel===i.id?' on':''}" id=b${i.id} title="${esc(i.rule)}" onclick="pick(${i.id})" style="left:${i.bbox[0]*Z}px;top:${i.bbox[1]*Z}px;width:${(i.bbox[2]-i.bbox[0])*Z}px;height:${(i.bbox[3]-i.bbox[1])*Z}px"></div>`).join('')}</div>`}).join('');
+ $('stage').querySelectorAll('img[data-src]').forEach(im=>obs.observe(im))}
+function goPage(n){$('pg'+n)?.scrollIntoView({behavior:'smooth',block:'start'})}
+
+/* ---------- issues tab ---------- */
+function renderIssues(){if(!data)return;const I=data.issues,sm=data.summary,b=sm.by_sev;
+ let h=`<div class=sum><b>${ver=='fixed'?'After auto-fix':'Original'}</b> — ${sm.total?`<span style=color:var(--c)>${sm.total} issues</span> (${b.critical||0} critical, ${b.major||0} major, ${b.minor||0} minor)`:'<span class=good>No issues found by the built-in checks</span> <a href=# onclick="tab(3);return false">(independent validation →)</a>'}`;
+ if(data.fixlog)h+=`<br><small>${Object.entries(data.fixlog.fixed).map(([k,v])=>esc(k)+': '+esc(v)).join(' · ')}<br>${data.fixlog.log.map(esc).join('<br>')}</small>`;
+ h+=`<br><small>Automated checks don't replace human review (reading order, alt-text quality) or an external PAC / veraPDF run. Use the <a href=# onclick="tab(4);return false">Human review</a> tab to record that review.</small></div>`;
+ h+=I.slice(0,2000).map(i=>`<div class="iss ${i.sev}${sel===i.id?' on':''}" tabindex=0 onclick="pick(${i.id})" onkeydown="if(event.key=='Enter')pick(${i.id})"><span class=tag>${esc(i.rule)}</span><span class=tag>p.${i.page||'–'}</span>${i.auto=='manual'?'':'<span class=tag>auto-fixable</span>'}<small>${esc(i.msg)} · MH ${esc(i.mh)} · WCAG ${esc(i.wcag)}</small></div>`).join('')+(I.length>2000?`<div class=rule><small>${I.length-2000} more issues not listed here (see the Validation tab / report).</small></div>`:'');
+ $('side').innerHTML=h}
+function pick(id){sel=id;document.querySelectorAll('.box.on').forEach(e=>e.classList.remove('on'));const bx=$('b'+id);if(bx){bx.classList.add('on');bx.scrollIntoView({block:'center',behavior:'smooth'})}else{const i=data.issues.find(x=>x.id==id);if(i&&i.page)goPage(i.page)}renderIssues()}
+
+/* ---------- PDF structure tag editor ---------- */
+let TG={nodes:[],selected:null,checked:new Set(),error:''};
+async function tagOpen(){if(!S||!S.fixed){$('side').innerHTML='<div class=sum>Run Auto-fix first to create the repaired PDF tag tree.</div>';return} $('side').innerHTML='<div class=sum>Loading tags…</div>';try{TG.nodes=(await (await api('/api/tags/'+S.sid)).json()).nodes||[];TG.error='';tagDraw()}catch(e){TG.error=e instanceof HttpErr&&e.status==404&&e.message=='Not Found'?'The Tag editor API is not loaded in the running server. Stop it with Ctrl+C, restart from the updated a11y-workbench-v5\\a11y folder, then reload this page. If the session has expired, upload and repair the PDF again.':explain(e);tagDraw()}}
+function tagFind(nodes,id){for(const n of nodes){if(n.id==id)return n;const c=tagFind(n.children||[],id);if(c)return c}return null}
+function tagTree(nodes){return nodes.map(n=>`<div class=tagtree><label><input type=checkbox style="width:auto" ${TG.checked.has(n.id)?'checked':''} onchange="tagCheck('${esc(n.id)}',this.checked)"><button class="${TG.selected==n.id?'chosen':''}" onclick="tagSelect('${esc(n.id)}')">${esc(n.type)}${n.standard?'':' · custom'}</button> <small>${n.page?'p.'+n.page:'page ?'} · ${n.child_count} children</small></label>${(n.children||[]).length?`<details open><summary>Contents (${n.child_count})</summary>${tagTree(n.children)}</details>`:''}</div>`).join('')}
+function tagDraw(){const n=tagFind(TG.nodes,TG.selected),roles=['Document','Part','Art','Sect','Div','P','H','H1','H2','H3','H4','H5','H6','L','LI','Lbl','LBody','Table','TR','TH','TD','THead','TBody','TFoot','Span','Quote','Note','Reference','Code','Link','Annot','Figure','Formula','Form','Caption'];
+ $('side').innerHTML=(TG.error?`<div class="iss critical">${esc(TG.error)}</div>`:'')+`<div class=sum><b>Structure tags</b><br><small>Select a node to inspect its page and region. Role changes are suggestions; check them in a PDF reader.</small></div><div class=tagtree>${tagTree(TG.nodes)||'<small>No structure elements found.</small>'}</div>`+(n?`<div class=tagedit><b>${esc(n.type)}</b> · ${n.page?'Page '+n.page:'page unknown'}<label>Standard type<select id=tagType>${roles.map(x=>`<option ${x==n.role?'selected':''}>${x}</option>`).join('')}</select></label><label>Optional custom name (maps to selected standard type)<input id=tagCustom maxlength=64 placeholder="Leave blank to use the standard name"></label><label>Alternative text<input id=tagAlt value="${esc(n.alt)}" maxlength=1000></label><label>Language<input id=tagLang value="${esc(n.lang)}" placeholder="en or en-US"></label><div class=acts><button onclick="tagOp({op:'rename',path:'${esc(n.id)}',type:$('tagType').value,custom:$('tagCustom').value})">Change type</button><button onclick="tagOp({op:'alt',path:'${esc(n.id)}',value:$('tagAlt').value})">Save alt</button><button onclick="tagOp({op:'lang',path:'${esc(n.id)}',value:$('tagLang').value})">Save language</button><button onclick="tagOp({op:'unwrap',path:'${esc(n.id)}'})">Unwrap</button><button onclick="tagGroup()">Group selected</button></div></div>`:'')}
+function tagCheck(id,on){if(on)TG.checked.add(id);else TG.checked.delete(id)}
+function tagSelect(id){TG.selected=id;const n=tagFind(TG.nodes,id);tagDraw();if(n&&n.page&&n.bbox)tagShow(n.page,n.bbox)}
+async function tagOp(op){TG.error='';try{await api('/api/tags/'+S.sid+'/edit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ops:[op]})});TG.checked.clear();await tagOpen();S.report=null;st('Tag edit saved; sign-off cleared')}catch(e){TG.error=explain(e);tagDraw()}}
+function tagGroup(){const paths=[...TG.checked];if(paths.length<2){TG.error='Select two or more adjacent sibling tags first';tagDraw();return}tagOp({op:'group',paths})}
+function tagShow(page,bbox){if(!S.fixed)return;ver='fixed';data=S.fixed;renderPages();goPage(page);setTimeout(()=>{const w=$('pg'+page);if(!w)return;const d=document.createElement('div');d.className='box on rvbox';d.setAttribute('aria-hidden','true');Object.assign(d.style,{left:bbox[0]*Z+'px',top:bbox[1]*Z+'px',width:Math.max(2,(bbox[2]-bbox[0])*Z)+'px',height:Math.max(2,(bbox[3]-bbox[1])*Z)+'px'});w.appendChild(d)},100)}
+
+/* ---------- validation tab ---------- */
+const LBL={passed:'✔ Passed',needs_review:'⚠ Needs review',failed:'✖ Failed',pending:'… Pending',error:'‼ Error'},OUT={fixed:'✔ Fixed',needs_review:'⚠ Fixed, needs review',failed:'✖ Still failing',regressed:'✖ New problem'};
+function renderVal(){const R=S&&S.report;if(!R){$('side').innerHTML='<div class=sum>Run <b>Auto-fix</b> to get the before/after validation: the repaired PDF is re-opened from disk and checked by a separate validator.</div>';return}
+ const B=R.before,A=R.after,rev=A.checks.filter(c=>c.status=='needs_review'&&!c.id.startsWith('man.'));
+ let h=`<div class=sum><b>Independent validation of the repaired PDF</b><br><span class="vb ${A.verdict}">${LBL[A.verdict]||esc(A.verdict)}</span><br><small>${esc(A.verdict_text)}</small>
+ <div class=cmp><div><small>Failures before</small><big>${B.totals.failed}</big></div><span class=arr aria-hidden=true>→</span><div><small>Failures after</small><big>${A.totals.failed}</big></div><div><small>Need review</small><big>${A.totals.needs_review}</big></div></div>
+ <small>${A.totals.checks_passed} of ${A.totals.checks} checks passed · same validator run on both files · repaired file SHA-256 ${esc(A.sha256.slice(0,12))}…</small>
+ <div id=hvbox class=cur style="margin-top:8px" aria-live=polite>Loading human-review status…</div></div>`;
+ const cats=A.category_summary||(()=>{const m={};A.checks.forEach(c=>{const x=m[c.group]??={group:c.group,checks:0,passed:0,warned:0,failed:0,errors:0};x.checks++;x[{passed:'passed',needs_review:'warned',failed:'failed',error:'errors'}[c.status]||'errors']++});return Object.values(m)})();
+ h+='<div class=sec>Automated check summary by category</div><div class=rule><small>These are workbench check counts, not PAC checkpoint totals. PAC results are listed separately below.</small></div>'+cats.map(c=>`<div class=pgrow><span>${esc(c.group)} <small>${c.checks} checks</small></span><span>✔ ${c.passed} · ⚠ ${c.warned} · ✖ ${c.failed} · ‼ ${c.errors}</span></div>`).join('');
+ h+='<div class=sec>What the repair did</div>'+(R.outcomes.map(o=>`<div class=rule><span class=tag>${OUT[o.outcome]}</span>${esc(o.title)}</div>`).join('')||'<div class=rule>No check changed status.</div>');
+ const AC=R.actions||[],ORD={failed:0,needs_review:1,succeeded:2},AL={succeeded:'✔ Succeeded',needs_review:'⚠ Needs review',failed:'✖ Failed'},n_=k=>AC.filter(a=>a.status==k).length;
+ h+=`<div class=sec>Fix actions (${n_('succeeded')} succeeded · ${n_('needs_review')} to review · ${n_('failed')} failed)</div>`+(AC.slice().sort((a,b)=>ORD[a.status]-ORD[b.status]).slice(0,300).map(a=>`<div class=rule ${a.page?`onclick=goPage(${a.page})`:''}><span class=tag>${AL[a.status]}</span>${esc(a.action)}${a.page?` <span class=tag>p.${a.page}</span>`:''}<small>${esc(a.detail)}</small></div>`).join('')||'<div class=rule>The fixer made no changes.</div>');
+ const SV={critical:0,major:1,minor:2},fl=[];A.checks.forEach(c=>c.findings.forEach(f=>{if(f.status=='failed'||f.status=='error')fl.push([c,f])}));fl.sort((a,b)=>(SV[a[1].sev]??9)-(SV[b[1].sev]??9)||(a[1].page||0)-(b[1].page||0));
+ const bs=A.totals.by_sev;h+=`<div class=sec>Remaining failures (${bs.critical} critical · ${bs.major} major · ${bs.minor} minor)</div>`+(fl.slice(0,300).map(([c,f])=>`<div class="iss ${f.sev=='critical'?'critical':f.sev=='major'?'major':'minor'}" ${f.page?`onclick=goPage(${f.page})`:''}><span class=tag>${esc(f.sev)}</span><span class=tag>${esc(c.id)}</span><span class=tag>${f.page?'p.'+f.page:'document'}</span><small>${esc(f.msg)} · WCAG ${esc(c.wcag)}</small></div>`).join('')||'<div class="rule good">None.</div>');
+ h+=`<div class=sec>Needs human review <button onclick="tab(4)">Open Human review →</button></div>`+rev.slice(0,100).map(c=>c.findings.slice(0,20).map(f=>`<div class="iss major" ${f.page?`onclick=goPage(${f.page})`:''}><span class=tag>${esc(c.id)}</span><span class=tag>${f.page?'p.'+f.page:'document'}</span><small>${esc(f.msg)}</small></div>`).join('')).join('')+A.checks.filter(c=>c.id.startsWith('man.')).map(c=>`<div class="iss minor"><span class=tag>manual</span><small>${esc(c.title)}: ${esc(c.findings[0]?.msg||'')}</small></div>`).join('');
+ h+='<div class=sec>Page by page</div>'+A.page_results.map(p=>`<div class=pgrow tabindex=0 onclick=goPage(${p.page}) onkeydown="if(event.key=='Enter')goPage(${p.page})"><span>Page ${p.page}</span><span>${p.failed} failed · ${p.needs_review} to review</span></div>`).join('');
+ h+='<div class=sec>External validators</div>'+A.external.map(x=>`<div class=rule><b>${esc(x.tool)}</b><span class=tag>${LBL[x.status]||esc(x.status)}</span><small>${esc(x.msg)}</small>${(x.details||[]).slice(0,10).map(d=>`<small>${esc(d.clause)}-${esc(d.test)}: ${esc(d.msg)}</small>`).join('')}</div>`).join('');
+ h+='<div class=sec>Audit log</div>'+R.audit.map(a=>`<div class=rule><small>${esc(a.t)} · ${esc(a.step)} · ${esc(a.detail)}</small></div>`).join('');
+ h+='<div class=sec>Limitations</div>'+A.limitations.map(l=>`<div class=rule><small>${esc(l)}</small></div>`).join('');
+ $('side').innerHTML=h;
+ api('/api/review/'+S.sid+'?limit=0').then(r=>r.json()).then(r=>{const b=$('hvbox');if(b){const s=r.summary;b.innerHTML=`<b>Human review:</b> ${esc(s.status_text)} · ${s.resolved} of ${s.total} items resolved${r.signoff?` · signed off by ${esc(r.signoff.reviewer)}`:''}`}}).catch(()=>{const b=$('hvbox');if(b)b.textContent=''})}
+
+/* ---------- HUMAN REVIEW ---------- */
+let RV={items:[],total:0,summary:null,groups:[],filter:'todo',draft:{},name:'',err:'',signoff:null};
+async function rvOpen(){if(!S||!S.report){$('side').innerHTML='<div class=sum>Run <b>Auto-fix</b> first. The review checklist is built from the validation of the repaired file.</div>';return}
+ $('side').innerHTML='<div class=sum>Loading the review checklist…</div>';RV.items=[];await rvLoad(true)}
+async function rvLoad(reset){try{const off=reset?0:RV.items.length;const r=await (await api(`/api/review/${S.sid}?status=${RV.filter}&offset=${off}&limit=40`)).json();
+  RV.items=reset?r.items:RV.items.concat(r.items);RV.total=r.total;RV.summary=r.summary;RV.groups=r.groups;RV.signoff=r.signoff;if(r.reviewer&&!RV.name)RV.name=r.reviewer;RV.err='';rvDraw()}
+ catch(e){RV.err=explain(e);rvDraw()}}
+function rvPatch(r){const it=r.items&&r.items[0];if(it){const k=RV.items.findIndex(x=>x.id==it.id);if(k>=0)RV.items[k]=it;delete RV.draft['n'+it.id]}RV.summary=r.summary;RV.groups=r.groups;RV.signoff=r.signoff;if(r.reviewer)RV.name=r.reviewer;RV.err=''}
+const DL={pending:'… not reviewed',confirmed:'✔ confirmed',edited:'✎ edited',rejected:'✖ rejected'};
+function rvDraw(){const s=RV.summary;if(!s){if(RV.err)$('side').innerHTML=`<div class="iss critical" role=alert>${esc(RV.err)}</div>`;return}
+ const keepFocus=document.activeElement&&document.activeElement.id;const pct=s.total?Math.round(100*s.resolved/s.total):100;
+ let h=`<div class=sum><b>Human verification</b><br><span class="vb ${s.status}">${esc(s.status_text)}</span>
+ <div class=bar role=progressbar aria-label="Review progress" aria-valuemin=0 aria-valuemax=100 aria-valuenow=${pct}><div style="width:${pct}%"></div></div>
+ <small>${s.resolved} of ${s.total} items resolved · ${s.pending} to do · ${s.rejected} rejected · ${s.unapplied} edit(s) waiting to be applied</small>
+ ${s.blockers.length?`<ul class=blk>${s.blockers.map(b=>`<li>${esc(b)}</li>`).join('')}</ul>`:'<div class=good style="margin-top:6px">Everything is resolved.</div>'}
+ <label class=fld>Your name (recorded with every decision)<input type=text id=rvname value="${esc(RV.name)}" maxlength=80 autocomplete=name oninput="RV.name=this.value"></label>
+ <div class=acts><button class=p id=rvapply onclick="rvApply()" title="Writes your edits into the repaired PDF and validates it again from scratch">Apply edits &amp; re-check${s.unapplied?` (${s.unapplied})`:''}</button></div>
+ <small>Automated checks cannot judge whether a description is accurate or the reading order is logical. Confirm an item only after you looked at it. This is a record of review, not a PDF/UA certification.</small></div>`;
+ if(RV.err)h+=`<div class="iss critical" role=alert>${esc(RV.err)}</div>`;
+ h+=`<div class=sec><label for=rvf>Show</label><select id=rvf onchange="RV.filter=this.value;rvLoad(true)">${[['todo','To do'],['all','All'],['confirmed','Confirmed'],['edited','Edited'],['rejected','Rejected']].map(([v,l])=>`<option value=${v}${RV.filter==v?' selected':''}>${l}</option>`).join('')}</select></div>`;
+ let last=null;const gmap={};RV.groups.forEach(g=>gmap[g.group]=g);
+ RV.items.forEach(i=>{if(i.group!==last){last=i.group;const g=gmap[i.group]||{total:0,pending:0};h+=`<div class=sec><span>${esc(i.group)} <span class=tag>${g.total-g.pending}/${g.total} done</span></span>${g.bulk&&g.pending>1?`<button data-g="${esc(i.group)}" onclick="rvBulk(this.dataset.g,${g.pending})" title="Confirm every not-yet-reviewed item in this group">Confirm all ${g.pending}</button>`:''}</div>`}h+=rvItem(i)});
+ if(!RV.items.length)h+=`<div class=rule>${RV.filter=='todo'?'<span class=good>Nothing left to do in this view.</span>':'No items.'}</div>`;
+ if(RV.items.length<RV.total)h+=`<div class=rule><button onclick="rvLoad(false)">Load more (${RV.total-RV.items.length} more)</button></div>`;
+ h+=rvSign(s);$('side').innerHTML=h;if(keepFocus){const e=$(keepFocus);if(e&&e.focus)e.focus()}}
+function rvItem(i){const id=esc(i.id),ext=i.source=='external',man=i.source=='manual',dr=RV.draft[id],deco=i.decision=='edited'&&i.value=='[decorative]',val=dr!==undefined?dr:(i.decision=='edited'&&i.value&&!deco?i.value:(i.current??''));
+ const crop=(i.bbox&&i.page)?`<img class=crop loading=lazy alt="Close-up of page ${i.page} where this item is located" src="/api/crop/${S.sid}/fixed/${i.page}.png?bbox=${i.bbox.map(v=>Math.round(v*10)/10).join(',')}&zoom=2">`:'';
+ const lab={alt:'Alternative text (what a screen-reader user hears instead of the image)',title:'Document title',lang:'Language code (en, fr, de, pt-BR …)'};
+ const edit=i.editable?`<label for="e${id}">${lab[i.editable]}</label>${i.editable=='alt'?`<textarea id="e${id}" oninput="RV.draft['${id}']=this.value">${esc(val)}</textarea>`:`<input type=text id="e${id}" value="${esc(val)}" oninput="RV.draft['${id}']=this.value">`}`:'';
+ const nv=RV.draft['n'+id]!==undefined?RV.draft['n'+id]:i.note;
+ return `<div class="rv ${i.decision}" id="rv-${id}"><span class=tag>${DL[i.decision]}${i.decision=='edited'?(i.applied?' · applied':' · not applied yet'):''}</span>${i.page?`<span class=tag>p.${i.page}</span>`:''}<b>${esc(i.title)}</b><small>${esc(i.detail)}</small>${crop}${edit}
+ ${deco?`<div class=cur role=note>Marked as decorative${i.applied?': removed from the reading order':': will be removed when you press Apply edits'}</div>`:''}
+ <label for="n${id}">Note ${ext?'(required: tool, version and result)':'(optional)'}</label><input type=text id="n${id}" maxlength=1000 value="${esc(nv)}" oninput="RV.draft['n${id}']=this.value">
+ ${i.locked?`<div class=lock role=note>${esc(i.locked)}</div>`:''}
+ <div class=acts>${i.locked?'':`<button class=ok onclick="rvDo('${id}','confirmed')">${ext?'✔ I ran it / accept':man?'✔ I did this check':'✔ Confirm'}</button>`}${i.editable?`<button class=ed onclick="rvDo('${id}','edited')">✎ Save my edit</button>`:''}${i.editable=='alt'?`<button class=ed onclick="rvDeco('${id}')" title="The image carries no information: remove it from the reading order">▫ Mark as decorative</button>`:''}<button class=no onclick="rvDo('${id}','rejected')">✖ ${ext?'Errors found':'Reject'}</button>${i.decision!='pending'?`<button onclick="rvDo('${id}','pending')">↺ Reset</button>`:''}${i.page&&S.fixed?`<button onclick="rvShow(${i.page},${esc(JSON.stringify(i.bbox||null))})">Show on page</button>`:''}</div>
+ ${i.decision!='pending'&&i.by?`<small>${esc(i.by)} · ${esc(i.t||'')}</small>`:''}</div>`}
+async function rvDo(id,decision){const v=$('e'+id),n=$('n'+id);RV.err='';
+ try{const r=await (await api(`/api/review/${S.sid}/item`,{method:'POST',body:form({id,decision,note:n?n.value:'',value:(decision=='edited'&&v)?v.value:null,reviewer:RV.name||null})})).json();
+  if(decision=='edited')delete RV.draft[id];rvPatch(r);st(decision=='edited'?'Edit saved: press "Apply edits & re-check" to write it into the PDF':'Saved')}
+ catch(e){RV.err=explain(e)}rvDraw()}
+async function rvDeco(id){const n=$('n'+id);RV.err='';try{const r=await (await api(`/api/review/${S.sid}/item`,{method:'POST',body:form({id,decision:'edited',note:n?n.value:'',value:'[decorative]',reviewer:RV.name||null})})).json();rvPatch(r);st('Marked as decorative: press "Apply edits & re-check" to write it into the PDF')}catch(e){RV.err=explain(e)}rvDraw()}
+async function rvBulk(group,n){if(!confirm(`Confirm all ${n} not-yet-reviewed items in "${group}"?\n\nOnly do this after you have checked them. The bulk confirmation is recorded in the report.`))return;
+ try{const r=await (await api(`/api/review/${S.sid}/bulk`,{method:'POST',body:form({group,reviewer:RV.name||null})})).json();RV.filter='todo';RV.items=r.items;RV.total=r.total;RV.summary=r.summary;RV.groups=r.groups;RV.signoff=r.signoff;RV.err=''}catch(e){RV.err=explain(e)}rvDraw()}
+async function rvApply(){RV.err='';try{await api(`/api/review/${S.sid}/apply`,{method:'POST'})}catch(e){RV.err=explain(e);rvDraw();return}jobTab=4;st('Re-checking…');poll()}
+function rvShow(page,bbox){if(!S.fixed)return;if(ver!='fixed'){ver='fixed';data=S.fixed;renderPages()}goPage(page);document.querySelectorAll('.box.rvbox').forEach(e=>e.remove());
+ if(bbox){const w=$('pg'+page);if(w){const d=document.createElement('div');d.className='box on rvbox';d.setAttribute('aria-hidden','true');Object.assign(d.style,{left:bbox[0]*Z+'px',top:bbox[1]*Z+'px',width:(bbox[2]-bbox[0])*Z+'px',height:(bbox[3]-bbox[1])*Z+'px'});w.appendChild(d)}}}
+function rvSign(s){const g=RV.signoff;
+ if(g)return `<div class=sec>Sign-off</div><div class=sum><span class="vb verified">✔ Signed off</span><br><small>${esc(g.reviewer)} · ${esc(g.t)}<br>Bound to file SHA-256 ${esc(g.sha256.slice(0,16))}…<br>${esc(g.statement)}</small><div class=acts><button onclick="rvUnsign()">Withdraw sign-off</button></div></div>`;
+ return `<div class=sec>Sign-off</div><div class=sum><small>Sign-off is possible when every item is resolved and no automated failure remains. Changing any decision or applying edits withdraws it.</small>
+ <label class=fld>Name<input type=text id=rvsn value="${esc(RV.name)}" maxlength=80 oninput="RV.name=this.value"></label>
+ <label class=fld style="display:flex;gap:8px;align-items:flex-start"><input type=checkbox id=rvag style="margin-top:3px"> <span>I reviewed every item in this checklist for this exact file. I understand this records my review and is not a PDF/UA certification.</span></label>
+ <div class=acts><button class=p onclick="rvSignoff()" ${s.can_signoff?'':'disabled'}>Sign off</button></div></div>`}
+async function rvSignoff(){RV.err='';try{const r=await (await api(`/api/review/${S.sid}/signoff`,{method:'POST',body:form({reviewer:$('rvsn').value,agree:$('rvag').checked?'yes':''})})).json();RV.summary=r.summary;RV.signoff=r.signoff;RV.groups=r.groups;st('Signed off')}catch(e){RV.err=explain(e)}rvDraw()}
+async function rvUnsign(){try{const r=await (await api(`/api/review/${S.sid}/signoff`,{method:'DELETE'})).json();RV.summary=r.summary;RV.signoff=null}catch(e){RV.err=explain(e)}rvDraw()}
+</script>

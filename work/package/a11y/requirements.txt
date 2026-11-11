@@ -1,0 +1,8 @@
+pikepdf
+pymupdf
+fonttools
+pytesseract
+pillow
+fastapi
+uvicorn
+python-multipart

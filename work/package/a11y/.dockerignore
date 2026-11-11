@@ -1,0 +1,9 @@
+tmp
+tests
+.venv
+venv
+__pycache__
+*.pdf
+.env
+.pytest_cache
+*.zip

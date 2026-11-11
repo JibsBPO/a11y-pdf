@@ -1,0 +1,8 @@
+pikepdf
+pymupdf>=1.24,<2
+fonttools
+pytesseract
+pillow
+fastapi
+uvicorn
+python-multipart

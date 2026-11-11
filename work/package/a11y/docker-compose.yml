@@ -1,0 +1,29 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        OCR_LANGS: ${OCR_LANGS:-eng}
+    env_file: .env
+    restart: unless-stopped
+    read_only: true                 # container filesystem is immutable...
+    tmpfs:
+      - /data:size=${DATA_TMPFS:-4g},uid=10001   # ...uploads live only in RAM and vanish on restart. Need roughly 4x your largest upload per file in progress
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: ${MEM_LIMIT:-6g}     # tmpfs counts against memory: keep MEM_LIMIT above DATA_TMPFS
+    cpus: 2
+    expose: ["8000"]                # not published to the internet; only Caddy can reach it
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN:?set DOMAIN in .env}
+      MAX_BODY: ${MAX_BODY:-210MB}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    depends_on: [app]
+volumes:
+  caddy_data:
